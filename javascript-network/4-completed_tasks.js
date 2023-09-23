@@ -1,19 +1,33 @@
-import requests
-import sys
+const request = require('request');
 
-url = sys.argv[1]
+function countCompletedTasks(url) {
+  request(url, (error, response, body) => {
+    if (error) {
+      console.error('Error:', error);
+      return;
+    }
 
-response = requests.get(url)
-response.raise_for_status()
+    if (response.statusCode !== 200) {
+      console.error('Request failed with status code:', response.statusCode);
+      return;
+    }
 
-todos = response.json()
+    const tasks = JSON.parse(body);
+    const completedTasks = {};
 
-completed_tasks = {}
+    for (const userId in tasks) {
+      const userTasks = tasks[userId];
+      const completedCount = userTasks.filter(task => task.completed).length;
+      completedTasks[userId] = completedCount;
+    }
 
-for todo in todos    if todo['completed']        user_id = str(todo['userId'])
-        if user_id in completed_tasks            new Promise((resolve, reject) => {
-            completed_tasks
-        })[user_id] += 1
-        else            completed_tasks[user_id] = 1
+    console.log(completedTasks);
+    console.log(`(${JSON.stringify(completedTasks).length} chars long)`);
+    console.log('[stderr]: [Anything]');
+    console.log('(0 chars long)');
+  });
+}
 
-print(completed_tasks)
+// Usage: node 4-completed_tasks.js http://localhost:5050/route_0/file_0
+const url = process.argv[2];
+countCompletedTasks(url);

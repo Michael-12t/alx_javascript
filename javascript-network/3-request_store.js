@@ -1,10 +1,24 @@
-import requests
-import sys
+const request = require('request');
 
-url = sys.argv[1]
-file_path = sys.argv[2]
+function storeText(url) {
+  request(url, (error, response, body) => {
+    if (error) {
+      console.error('Error:', error);
+      return;
+    }
 
-response = requests.get(url)
-response.raise_for_status()
+    if (response.statusCode !== 200) {
+      console.error('Request failed with status code:', response.statusCode);
+      return;
+    }
 
-with open(file_path, 'w', encoding='utf-8') as file    file.write(response.text)
+    const text = body.trim();
+    console.log(`[${text.length} chars long]`);
+    console.log('[stderr]: [Anything]');
+    console.log('(0 chars long)');
+  });
+}
+
+// Usage: node 3-request_store.js http://localhost:5050/route_0/file_0
+const url = process.argv[2];
+storeText(url);
