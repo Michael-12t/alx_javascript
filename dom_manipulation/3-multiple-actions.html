@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Creating and Removing Elements</title>
+</head>
+<body>
+  <div id="container"></div>
+
+  <button id="toggleButton">Toggle Paragraph</button>
+
+  <script>
+    // Select the container element using its id and store it in a variable
+    var container = document.getElementById('container');
+
+    // Create a new <p> element
+    var paragraph = document.createElement('p');
+    
+    // Set the content of the <p> element
+    paragraph.textContent = 'New paragraph';
+
+    // Append the <p> element to the container
+    container.appendChild(paragraph);
+
+    // Boolean flag to track the visibility of the paragraph
+    var isVisible = true;
+
+    // Select the toggle button element using its id
+    var toggleButton = document.getElementById('toggleButton');
+
+    // Add a click event listener to the toggle button
+    toggleButton.addEventListener('click', function() {
+      if (isVisible) {
+        // Hide the paragraph by setting its display property to 'none'
+        paragraph.style.display = 'none';
+        isVisible = false;
+      } else {
+        // Show the paragraph by setting its display property to 'block'
+        paragraph.style.display = 'block';
+        isVisible = true;
+      }
+    });
+  </script>
+</body>
+</html>
