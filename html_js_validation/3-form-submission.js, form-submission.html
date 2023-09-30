@@ -1,0 +1,49 @@
+// Retrieve the form element and attach an event listener to the form's submit event
+document.getElementById("submitForm").addEventListener("submit", handleFormSubmit);
+
+// Function to handle the form submission
+function handleFormSubmit(event) {
+  // Prevent the form from submitting by default
+  event.preventDefault();
+
+  // Retrieve the values entered in the form fields
+  var nameInput = document.getElementById("name").value.trim();
+  var emailInput = document.getElementById("email").value.trim();
+
+  // Perform validation
+  var isValid = validateForm(nameInput, emailInput);
+
+  // Display success message if validation passes
+  if (isValid) {
+    displaySuccessMessage();
+  }
+}
+
+// Function to validate the form fields
+function validateForm(name, email) {
+  // Check if the name and email fields are filled
+  if (name === "" || email === "") {
+    // Display error message if any required field is empty
+    displayErrorMessage("Please fill in all required fields");
+    return false;
+  }
+
+  // Add more validation logic as needed
+
+  // Return true if all validations pass
+  return true;
+}
+
+// Function to display an error message
+function displayErrorMessage(message) {
+  var errorElement = document.getElementById("error");
+  errorElement.textContent = message;
+  errorElement.style.color = "red";
+}
+
+// Function to display a success message
+function displaySuccessMessage() {
+  var successElement = document.getElementById("success");
+  successElement.textContent = "Form submitted successfully!";
+  successElement.style.color = "green";
+}

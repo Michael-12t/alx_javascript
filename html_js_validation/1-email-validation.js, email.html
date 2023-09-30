@@ -1,0 +1,34 @@
+// Retrieve the form element and attach an event listener to the form's submit event
+document.getElementById("emailForm").addEventListener("submit", function(event) {
+  // Prevent the form from submitting by default
+  event.preventDefault();
+
+  // Retrieve the value entered in the email input field
+  var emailInput = document.getElementById("email").value;
+
+  // Call the validateEmail function to check the email format
+  var isValid = validateEmail(emailInput);
+
+  // If the email format is valid, allow the form submission
+  if (isValid) {
+    this.submit();
+  }
+});
+
+// Function to validate the email format
+function validateEmail(email) {
+  // Define a regular expression for email validation
+  var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Test the email against the regular expression
+  var isValid = regex.test(email);
+
+  // Display an error message if the email format is not valid
+  if (!isValid) {
+    document.getElementById("error").textContent = "Please enter a valid email address.";
+    return false;
+  }
+
+  // Return true if the email format is valid
+  return true;
+}
